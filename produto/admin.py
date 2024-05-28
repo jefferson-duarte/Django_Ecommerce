@@ -23,8 +23,8 @@ class ProdutoAdmin(admin.ModelAdmin):
     list_display = [
         'nome',
         'descricao_curta',
-        'preco_marketing',
-        'preco_marketing_promocional',
+        'get_preco_formatado',
+        'get_preco_promo_formatado',
         'tipo',
     ]
 
