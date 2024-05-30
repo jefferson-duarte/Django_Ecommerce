@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse
 from django.views.generic.list import ListView
@@ -6,7 +5,6 @@ from django.views.generic import DetailView
 from django.views import View
 from .models import Produto, Variacao
 from django.contrib import messages
-from pprint import pprint
 
 
 class ListaProdutos(ListView):
@@ -91,7 +89,7 @@ class AdicionarAoCarrinho(View):
             carrinho[variacao_id]['preco_quantitativo'] = preco_unitario * \
                 quantidade_carrinho
             carrinho[variacao_id]['preco_quantitavo_promocional'] = preco_unitario_promocional * \
-                quantidade_carrinho
+                quantidade_carrinho  # noqa
 
         else:
             carrinho[variacao_id] = {
@@ -103,7 +101,7 @@ class AdicionarAoCarrinho(View):
                 'preco_unitario_promocional': preco_unitario_promocional,
                 'preco_quantitativo': preco_unitario,
                 'preco_quantitativo_promocional': preco_unitario_promocional,
-                'quantidade': 1,
+                'quantidade': quantidade,
                 'slug': slug,
                 'imagem': imagem,
             }
@@ -123,7 +121,10 @@ class RemoverDoCarrinho(View):
 
 class Carrinho(View):
     def get(self, *args, **kwargs):
-        return render(self.request, 'produto/carrinho.html')
+        contexto = {
+            'carrinho': self.request.session.get('carrinho', {})
+        }
+        return render(self.request, 'produto/carrinho.html', contexto)
 
 
 class Finalizar(View):
