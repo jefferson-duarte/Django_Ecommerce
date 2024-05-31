@@ -72,7 +72,7 @@ class Variacao(models.Model):
     nome = models.CharField(max_length=255, blank=True, null=True)
     preco = models.FloatField()
     preco_promocional = models.FloatField(default=0)
-    estoque = models.FloatField(default=1)
+    estoque = models.PositiveIntegerField()
 
     def __str__(self):
         return self.nome or self.produto.nome

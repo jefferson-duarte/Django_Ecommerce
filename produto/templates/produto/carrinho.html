@@ -32,7 +32,7 @@
                                         {{ produto.produto_nome }}
                                     </a>
                                     
-                                    <a class="ml-3" href="#">
+                                    <a class="ml-3" href="{% url "produto:removerdocarrinho" %}?vid={{ produto.variacao_id }}">
                                         <i class="fas fa-times-circle text-danger" aria-hidden="true"></i>
                                     </a>
                                 </td>
@@ -63,13 +63,13 @@
 
         <div class="row mt-3">
             <div class="col-lg">
-                <p class='lead'>Total no carrinho</p>
+                <p class='lead'></p>
 
                 <div class='table-responsive'>
                     <table class="table">
                         <tr>
                             <td class="font-weight-bold">Total</td>
-                            <td>R$100000</td>
+                            <td>{{ carrinho|cart_totals|formata_preco }}</td>
                         </tr>
                     </table>
                 </div>
