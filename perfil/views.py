@@ -64,7 +64,10 @@ class BasePerfil(View):
 class Criar(BasePerfil):
     def post(self, *args, **kwargs):
         if not self.user_form.is_valid() or not self.perfil_form.is_valid():
-            # if not self.user_form.is_valid():
+            messages.error(
+                self.request,
+                'Existem erros no formulário de cadastro.'
+            )
             return self.renderizar
 
         username = self.user_form.cleaned_data.get('username')
