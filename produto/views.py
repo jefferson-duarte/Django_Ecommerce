@@ -162,7 +162,7 @@ class ResumoDaCompra(View):
         if not self.request.user.is_authenticated:
             return redirect(reverse('perfil:criar'))
 
-        perfil = Perfil.objects.filter(usaurio=self.request.user).exists()
+        perfil = Perfil.objects.filter(usuario=self.request.user).exists()
 
         if not perfil:
             messages.error(
